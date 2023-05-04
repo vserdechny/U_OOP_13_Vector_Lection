@@ -56,18 +56,58 @@ int main()
 	print_vector_with_info(i_testvec, "i_testvec info:");
 
 	//******************************************
-	// Iterators
+	// Iterators (+auto, range-based for statement, insert method of vector)
 	//******************************************
 	cout << endl << endl;
 	cout << "Printing values of d_testvec vector with const iterator:\n";
-	for (std::vector<double>::const_iterator it = d_testvec.cbegin(); it < d_testvec.cend(); it++)
-		cout << *it << " ";
+	for (const auto& i : d_testvec)
+		cout << i << " ";
 	cout << endl << endl;
 
 	cout << "Printing values of d_testvec vector with const reverse iterator:\n";
-	for (std::vector<double>::const_reverse_iterator it = d_testvec.crbegin(); it < d_testvec.crend(); it++)
+	for (auto it = d_testvec.crbegin(); it < d_testvec.crend(); it++)
 		cout << *it << " ";
 	cout << endl << endl;
+
+	d_testvec.insert(d_testvec.begin(), 3.5);
+	d_testvec.insert(d_testvec.begin() + d_testvec.size() / 2, 1.5);
+	
+	cout << "Inserting value {3.5} at the beginning of vector d_testvec and {1.5} at the middle:\n";
+	print_vector_with_info(d_testvec, "d_testvec info:");
+
+	//******************************************
+	// Removing values
+	//******************************************
+	i_testvec.pop_back();
+	cout << endl << endl;
+	print_vector_with_info(i_testvec, "i_testvec info after removing the last value:");
+
+	i_testvec.erase(i_testvec.begin());
+	cout << endl << endl;
+	print_vector_with_info(i_testvec, "i_testvec info after removing the first value:");
+
+	i_testvec.erase(i_testvec.begin(), i_testvec.begin() + 3);
+	cout << endl << endl;
+	print_vector_with_info(i_testvec, "i_testvec info after removing first 3 value:");
+
+	i_testvec.clear();
+	cout << endl << endl;
+	print_vector_with_info(i_testvec, "i_testvec after removing all values:");
+
+	//******************************************
+	// Size control methods
+	//******************************************
+	i_testvec.shrink_to_fit();
+
+	print_vector_with_info(i_testvec, "i_testvec info after shrink_to_fit method:");
+
+	i_testvec.reserve(20);
+
+	print_vector_with_info(i_testvec, "i_testvec info after reserving 20 values:");
+
+	d_testvec.resize(3);
+
+	print_vector_with_info(d_testvec, "d_testvec info after resizing to 3 values:");
 }
 
 template <typename T>
